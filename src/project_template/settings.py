@@ -27,6 +27,7 @@ https://docs.kedro.org/en/stable/kedro_project_setup/settings.html."""
 from kedro.config import OmegaConfigLoader  # noqa: E402
 
 CONFIG_LOADER_CLASS = OmegaConfigLoader
+CONF_SOUURCE = "conf"
 # Keyword arguments to pass to the `CONFIG_LOADER_CLASS` constructor.
 CONFIG_LOADER_ARGS = {
       "base_env": "base",
@@ -44,3 +45,6 @@ CONFIG_LOADER_ARGS = {
 # Class that manages the Data Catalog.
 # from kedro.io import DataCatalog
 # DATA_CATALOG_CLASS = DataCatalog
+
+# Logging configuration
+KEDRO_LOGGING_CONFIG = "conf/base/logging.yml"

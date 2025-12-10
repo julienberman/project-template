@@ -5,12 +5,18 @@ dependencies:
   - python=3.11
   - ibis-framework
   - ipykernel
+  - ipython>=8.10
+  - jupyterlab>=3.0
+  - notebook
   - matplotlib
   - numpy
+  - openpyxl>=3.0.6
   - pandas
   - pip:
       - duckdb
-  - python-duckdb
+      - "kedro[jupyter]~=1.1.1"
+      - "kedro-datasets[pandas,ibis,json]>=9.0"
+      - kedro-viz>=6.7.0
   - pyyaml
-  - rpy2
-  - scikit-learn
+  - scikit-learn~=1.5.1
+  - seaborn~=0.12.1

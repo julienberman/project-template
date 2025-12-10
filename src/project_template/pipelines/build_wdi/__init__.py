@@ -1,4 +1,7 @@
-"""Complete reporting pipeline for the spaceflights tutorial"""
+"""
+This is a boilerplate pipeline 'build_wdi'
+generated using Kedro 1.1.1
+"""
 
 from .pipeline import create_pipeline
 
