@@ -1,102 +1,100 @@
-## JMSLab Template
+# project-template
 
-A template for research projects developed by JMSLab.
+[![Powered by Kedro](https://img.shields.io/badge/powered_by-kedro-ffc900?logo=kedro)](https://kedro.org)
 
-### Prerequisites
+## Overview
 
-- We recommend installing Python via [Anaconda](https://www.anaconda.com/products/individual).
-    - We use Python to run [SCons](https://scons.org); custom SCons builders are also written in Python.
-    - You will need to install the dependencies in `source/lib/requirements.txt` (including SCons). See [quick start](#quick-start) below.
-- [git](https://git-scm.com/downloads) for version control.
-    - And [git-lfs](https://git-lfs.github.com/) for versioning large files.
-- [LyX](https://www.lyx.org/Download) for writing documents.
+This is your new Kedro project, which was generated using `kedro 1.1.1`.
 
-In addition, each project may use other specialized tools. For the working example in this template, install:
+Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
 
-- [R](https://www.r-project.org/)
-- [Stata](https://www.stata.com/install-guide/)
-- [Matlab](https://www.mathworks.com/help/install/install-products.html)
+## Rules and guidelines
 
-### Repository structure
+In order to get the best out of the template:
 
-- `source/` contains source scripts and (small) raw data.
+* Don't remove any lines from the `.gitignore` file we provide
+* Make sure your results can be reproduced by following a [data engineering convention](https://docs.kedro.org/en/stable/faq/faq.html#what-is-data-engineering-convention)
+* Don't commit data to your repository
+* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
 
-- `output/` and `datastore/` should mimic the folder structure in `source/`.
+## How to install dependencies
 
-    - For instance, the code in `source/analysis/plots/` saves output to `output/analysis/plots/`.
+Declare any dependencies in `requirements.txt` for `pip` installation.
 
-    - `datastore/` is not under version control; a project's large files are stored here. See [here](https://drive.google.com/drive/folders/1b3UeaAYbtOk67qyniBGLLqkVIHE4xSvy?usp=sharing) for an example designed to work with this template.
+To install them, run:
 
-    - With the exception of large raw files, every file in these folders is produced by `source/`.
-	
-	- Files tracked by git-lfs are ignored in `output/` because [git-lfs files are not permitted in a template repository](https://github.community/t/lfs-support-for-template-repos/122449).
-
-- `temp/` is not under version control; create the folder after cloning the repository.  `temp/` may used by scripts to store temporary or intermediate files (though some projects may not need it).
-
-- _Issue folders_: When working on issue branches, you may create an issue folder at the top of the directory under version control (e.g. `./issue1_short_task_name`).
-
-    - Code and (small) deliverables related to the issue are organized inside the issue folder. See [this example](https://github.com/JMSLab/Template/blob/05337cfa4a50ecfeda56afbdd295378d8e071a39/issue10_readme).
-
-    - The issue folder should be deleted after the issue is resolved and is not merged into the main branch.
-
-- `/.github` defines workflows for [github actions](https://docs.github.com/en/actions). We recommend disabling these by default when creating a private repository.
-
-### Quick start
-
-1. Open the command-line and clone the repository. For example,
-
-    ```
-    git clone https://github.com/JMSLab/Template ProjectName
-    cd ProjectName
-    ```
-
-2. Create a symbolic link called `datastore` to _a local copy_ the project's datastore, if one exists for the project (e.g. a Dropbox or Google Drive folder).
-
-    - Do _not_ link a "live" copy of the datastore (i.e. one that is synchronized to the internet). Work with a local, off-line copy before modifying the live copy;  otherwise the data may get unintentionally overwritten for everyone using the datastore.
-
-3. Install dependencies:
-
-    ```
-    pip install -r source/lib/requirements.txt
-    ```
-
-    (If using `conda`, run `conda install --file source/lib/requirements.txt`.)  Requirements for other languages, should there be any, will be found in `source/lib/requirements.{ext}` with `{ext}` equal to `do` (Stata), `r` (R), `m` (Matlab), and so on.
-
-4. Make sure that all the required program executables are in your system's path.
-
-    - The default names that SCons assumes for the programs are in `source/lib/JMSLab/builders/executables.yml`.
-
-    - To have SCons use a custom executable name or path, define a command-line (environment) variable named `JMSLAB_EXE_PROGRAM`. e.g. On Windows, `SET JMSLAB_EXE_STATA=StataSE.exe` or `SET JMSLAB_EXE_STATA=C:\Program Files (x86)\Stata16\StataSE.exe`.
-
-5. To compile the project, open the command-line and run `scons` from the project's root folder.
-
-    - To run a given script or create a given file, run `scons path/to/script_or_file`; this will recursively run all the dependencies required to run the script or create the file.  e.g.  `scons output/derived/wb_clean/gdp_education.csv`.
-
-### SConscript files
-
-In order to integrate a new script into the SCons build, you need to modify the SConscript file in the corresponding `source/` sub-folder.  For example, to add `source/derived/wb_clean/takelogs.do` to the SCons build, add an entry to `source/derived/SConscript`. In this case:
-
-```python
-target = ['#output/derived/wb_clean/gdp_education_logs.csv']
-source = ['#source/derived/wb_clean/takelogs.do',
-          '#output/derived/wb_clean/gdp_education.csv']
-env.Stata(target, source)
+```
+pip install -r requirements.txt
 ```
 
-- `target` is a list with all of the files produced by the script.
+## How to run your Kedro pipeline
 
-- `source` is a list with the script's name and all of the files used as input; the script _must_ be the first element of the list.
+You can run your Kedro project with:
 
-- `env.Stata` is the Stata builder provided in `source/lib/JMSLab/builders`; this is imported and saved as part of the `env` object in the `SConstruct` file at the root of the project.
+```
+kedro run
+```
 
-- For tips on batch-specifying targets and sources, see [./docs/batch_specifying.md](./docs/batch_specifying.md).
+## How to test your Kedro project
 
-### Citations and expectations for usage
+Have a look at the files `tests/test_run.py` and `tests/pipelines/data_science/test_pipeline.py` for instructions on how to write your tests. Run the tests as follows:
 
-This template is based on [gslab-econ/Template/v4.1.3](https://github.com/gslab-econ/template/releases/tag/4.1.3) and [gslab-python/v4.1.4](https://github.com/gslab-econ/gslab_python/releases/tag/v4.1.4).
+```
+pytest
+```
 
-It was designed for use in JMSLab. You are welcome to use it in your own research, as long as you (i) [let us know](https://github.com/JMSLab/Template/issues/53) that you plan to do this and (ii) agree to help maintain the template in the future.
+You can configure the coverage threshold in your project's `pyproject.toml` file under the `[tool.coverage.report]` section.
 
-### Use in reproducible research
+## Project dependencies
 
-A research repository based on this template was used successfully in a first-try replication by a third party contracted to the American Economic Association in June 2022.
+To see and update the dependency requirements for your project use `requirements.txt`. You can install the project requirements with `pip install -r requirements.txt`.
+
+[Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
+
+## How to work with Kedro and notebooks
+
+> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `catalog`, `context`, `pipelines` and `session`.
+>
+> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
+
+### Jupyter
+To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
+
+```
+pip install jupyter
+```
+
+After installing Jupyter, you can start a local notebook server:
+
+```
+kedro jupyter notebook
+```
+
+### JupyterLab
+To use JupyterLab, you need to install it:
+
+```
+pip install jupyterlab
+```
+
+You can also start JupyterLab:
+
+```
+kedro jupyter lab
+```
+
+### IPython
+And if you want to run an IPython session:
+
+```
+kedro ipython
+```
+
+### How to ignore notebook output cells in `git`
+To automatically strip out all output cell contents before committing to `git`, you can use tools like [`nbstripout`](https://github.com/kynan/nbstripout). For example, you can add a hook in `.git/config` with `nbstripout --install`. This will run `nbstripout` before anything is committed to `git`.
+
+> *Note:* Your output cells will be retained locally.
+
+## Package your Kedro project
+
+[Further information about building project documentation and packaging your project](https://docs.kedro.org/en/stable/tutorial/package_a_project.html)

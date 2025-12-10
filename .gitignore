@@ -1,14 +1,62 @@
-/drive
-/datastore
-/temp
+######################
+# TEMPLATE GITIGNORE #
+######################
+
+# ignore all local configuration
+conf/local/**
+!conf/local/.gitkeep
+
+# ignore everything in the following folders
+data/**
+
+# keep the example dataset
+!data/01_raw/companies.csv
+!data/01_raw/reviews.csv
+!data/01_raw/shuttles.xlsx
+
+# ignore kedro-viz metadata
+.viz
+
+# ignore file based logs
+*.log
+
+##########################
+# Common files
+
+### macOS
+*.DS_Store
+.AppleDouble
+.LSOverride
+.Trashes
+
+### Vim
+*~
+.*.swo
+.*.swp
+
+### Python
+__pycache__/
+*.py[cod]
+*$py.class
 *.pyc
-*.lyx~
-*.lyx#
+*.ipynb*
+
+### R
 *.RDS
 *.RData
 *.Rhistory
+*.Rproj
+*.Rproj.user
 *.Rapp.history
-*.DS_Store
+
+### Matlab
+*.m~
+
+### LyX
+*.lyx~
+*.lyx#
+
+### TeX
 *.aux
 *.fls
 *.lof
@@ -17,20 +65,13 @@
 *.snm
 *.toc
 *.out
-*.svn
-*.m~
 *.bbl
 *.blg
 *.handout.pdf
 *.handout.lyx
 *.synctex.gz
 
-# git-lfs files cannot be included in a template repository
-output/analysis/plots/gdp_educ.png
-output/analysis/plots/educ_gdp.png
-output/paper/TemplateLyx.pdf
-output/paper/TemplateTex.pdf
-output/talk/TemplateSlides.pdf
-output/talk/TemplateSlidesLatex.pdf
+### Slurm
+*.sbatch
+*.err
 
-*ipynb_checkpoints*
