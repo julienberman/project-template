@@ -1,0 +1,16 @@
+name: project-template
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - ibis-framework
+  - ipykernel
+  - matplotlib
+  - numpy
+  - pandas
+  - pip:
+      - duckdb
+  - python-duckdb
+  - pyyaml
+  - rpy2
+  - scikit-learn
