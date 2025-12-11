@@ -6,8 +6,8 @@ def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline([
         Node(
             func=build_iso,
-            inputs="iso",
+            inputs=dict(iso="iso", globals="params:globals"),
             outputs="iso_clean",
-            name="node_build_iso"
+            name="build_iso"
         )
     ])

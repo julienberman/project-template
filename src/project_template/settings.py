@@ -1,13 +1,9 @@
-"""Project settings. There is no need to edit this file unless you want to change values
-from the Kedro defaults. For further information, including these default values, see
+"""Project settings. For further information, see
 https://docs.kedro.org/en/stable/kedro_project_setup/settings.html."""
 
-# Instantiated project hooks.
-# For example, after creating a hooks.py and defining a ProjectHooks class there, do
-# from project_template.hooks import ProjectHooks
-
-# Hooks are executed in a Last-In-First-Out (LIFO) order.
-# HOOKS = (ProjectHooks(),)
+# Manage hooks. Executed in Last-In-First-Out (LIFO) order.
+from project_template.utils.hooks.ValidateData import ValidateData
+HOOKS = (ValidateData(),)
 
 # Installed plugins for which to disable hook auto-registration.
 # DISABLE_HOOKS_FOR_PLUGINS = ("kedro-viz",)
@@ -23,8 +19,8 @@ https://docs.kedro.org/en/stable/kedro_project_setup/settings.html."""
 # Directory that holds configuration.
 # CONF_SOURCE = "conf"
 
-# Class that manages how configuration is loaded.
-from kedro.config import OmegaConfigLoader  # noqa: E402
+# Manage configuration loading.
+from kedro.config import OmegaConfigLoader
 
 CONFIG_LOADER_CLASS = OmegaConfigLoader
 CONF_SOUURCE = "conf"

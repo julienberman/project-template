@@ -6,6 +6,7 @@ dependencies:
   - ibis-framework
   - ipykernel
   - ipython>=8.10
+  - pyjanitor
   - jupyterlab>=3.0
   - notebook
   - matplotlib

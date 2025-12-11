@@ -47,3 +47,11 @@ gdp_ppp:
   filepath: data/01_raw/wdi/gdp_ppp.csv
   load_args:
     skiprows: 4
+
+wdi_clean:
+  type: project_template.utils.custom_datasets.ValidatedCSVDataset
+  filepath: data/02_intermediate/wdi/wdi_clean.csv
+  logpath: data/02_intermediate/wdi/wdi_clean.log
+  keys: ["iso3c", "year"]
+  sort_by_key: true
+  reorder_columns: true

@@ -11,8 +11,9 @@ def build_iso(iso: dict, globals={}):
         pd.DataFrame(list(iso.items()), columns=["country", "iso3c"])
         .assign(iso3c = lambda x: clean_text(x["iso3c"]))
         .assign(country = lambda x: clean_text(x["country"]))
+        .assign(key = 1)
         .merge(pd.DataFrame({"year": years, "key": 1}), on="key")
-        .drop("key", axis=1)
-    )
+        .drop(columns=["key"])
+    )    
     return panel
     
